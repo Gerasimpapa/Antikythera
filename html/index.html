@@ -8,6 +8,20 @@
 </head>
 <body>
   <main class="app-shell">
+    <header class="site-header">
+      <a class="site-title" href="index.html">Antikythera</a>
+      <div class="menu">
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+        <nav class="menu-panel" id="siteMenu" aria-label="Site menu" hidden>
+          <a href="docs/antikythera_documentation.pdf" target="_blank" rel="noopener">Documentation</a>
+        </nav>
+      </div>
+    </header>
+
     <section class="stage" aria-label="Antikythera ring display">
       <canvas id="ringsCanvas"></canvas>
     </section>
@@ -21,6 +35,8 @@
 
       <div class="button-row" aria-label="Date step controls">
         <button type="button" data-action="now">Now</button>
+        <button type="button" data-hours="-1">-Hour</button>
+        <button type="button" data-hours="1">+Hour</button>
         <button type="button" data-days="-1">-Day</button>
         <button type="button" data-days="1">+Day</button>
         <button type="button" data-months="-1">-Month</button>

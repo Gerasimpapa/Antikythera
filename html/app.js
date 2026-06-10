@@ -11,6 +11,8 @@
   const dateInput = document.getElementById("dateInput");
   const dateSlider = document.getElementById("dateSlider");
   const readout = document.getElementById("readout");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const menuPanel = document.getElementById("siteMenu");
   const launchDate = new Date();
   const images = new Map();
   let angles = new Array(names.length).fill(0);
@@ -52,6 +54,7 @@
     next.setUTCFullYear(next.getUTCFullYear() + (parts.years || 0));
     next.setUTCMonth(next.getUTCMonth() + (parts.months || 0));
     next.setUTCDate(next.getUTCDate() + (parts.days || 0));
+    next.setUTCHours(next.getUTCHours() + (parts.hours || 0));
     return next;
   }
 
@@ -142,6 +145,29 @@
     })));
   }
 
+  function setMenuOpen(isOpen) {
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    menuPanel.hidden = !isOpen;
+  }
+
+  menuToggle.addEventListener("click", () => {
+    setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!menuPanel.hidden && !event.target.closest(".menu")) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !menuPanel.hidden) {
+      setMenuOpen(false);
+      menuToggle.focus();
+    }
+  });
+
   dateSlider.addEventListener("input", () => {
     const offsetDays = Number(dateSlider.value);
     setDate(new Date(launchDate.getTime() + offsetDays * 86400000), { updateSlider: false });
@@ -164,6 +190,7 @@
       }
 
       setDate(addUtcParts(currentDate, {
+        hours: Number(button.dataset.hours || 0),
         days: Number(button.dataset.days || 0),
         months: Number(button.dataset.months || 0),
         years: Number(button.dataset.years || 0)
