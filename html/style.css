@@ -34,7 +34,7 @@ body {
 
 .site-header {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   min-height: 58px;
   display: flex;
   align-items: center;
@@ -54,28 +54,41 @@ body {
 
 .menu {
   position: relative;
+  flex: 0 0 auto;
 }
 
 .menu-toggle {
   width: 44px;
+  height: 44px;
   min-height: 44px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 5px;
+  border: 0;
+  border-radius: 6px;
   padding: 0;
+  color: #ffffff;
+  background: var(--button);
+  cursor: pointer;
 }
 
 .menu-toggle span {
   width: 21px;
   height: 2px;
   border-radius: 999px;
-  background: #ffffff;
+  background: currentColor;
+  display: block;
+}
+
+.menu-toggle:hover {
+  background: var(--button-hover);
 }
 
 .menu-panel {
   position: absolute;
+  z-index: 20;
   top: calc(100% + 8px);
   right: 0;
   width: min(260px, calc(100vw - 24px));
